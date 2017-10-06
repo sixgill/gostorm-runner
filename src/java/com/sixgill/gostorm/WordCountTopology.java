@@ -33,6 +33,7 @@ import org.apache.storm.starter.spout.RandomSentenceSpout;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.io.File;
 
 /**
  * This topology demonstrates Storm's stream groupings and multilang capabilities.
@@ -41,7 +42,7 @@ public class WordCountTopology {
   public static class SplitSentence extends ShellBolt implements IRichBolt {
 
     public SplitSentence() {
-      super("python", "splitsentence.py");
+        super("/bin/sh", "-c", "chmod a+x ./ourbolt && ./ourbolt");
     }
 
     @Override
@@ -77,6 +78,8 @@ public class WordCountTopology {
 
   public static void main(String[] args) throws Exception {
 
+    File file = new File("./ourbolt");
+    file.setExecutable(true);
     TopologyBuilder builder = new TopologyBuilder();
 
     builder.setSpout("spout", new RandomSentenceSpout(), 5);

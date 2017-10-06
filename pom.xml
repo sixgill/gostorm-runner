@@ -110,19 +110,30 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.2.1</version>
         <executions>
+            <execution>
+              <id>build go bolt</id>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>exec</goal>
+              </goals>
+              <configuration>
+                <executable>go</executable>
+                <commandlineArgs>build -o multilang/resources/ourbolt github.com/jsgilmore/gostorm/example/splitsentence</commandlineArgs>
+              </configuration>
+            </execution>
           <execution>
             <goals>
               <goal>exec</goal>
             </goals>
+            <configuration>
+              <executable>java</executable>
+              <includeProjectDependencies>true</includeProjectDependencies>
+              <includePluginDependencies>false</includePluginDependencies>
+              <classpathScope>compile</classpathScope>
+              <mainClass>${storm.topology}</mainClass>
+            </configuration>
           </execution>
         </executions>
-        <configuration>
-          <executable>java</executable>
-          <includeProjectDependencies>true</includeProjectDependencies>
-          <includePluginDependencies>false</includePluginDependencies>
-          <classpathScope>compile</classpathScope>
-          <mainClass>${storm.topology}</mainClass>
-        </configuration>
       </plugin>
     </plugins>
   </build>
