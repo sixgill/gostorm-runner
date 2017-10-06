@@ -42,7 +42,7 @@ public class Topology {
   public static class SplitSentence extends ShellBolt implements IRichBolt {
 
     public SplitSentence() {
-        super("/bin/sh", "-c", "chmod a+x ./ourbolt && ./ourbolt");
+        super("/bin/sh", "-c", "chmod a+x ./splitsentence && ./splitsentence");
     }
 
     @Override
@@ -58,7 +58,7 @@ public class Topology {
 
   public static void main(String[] args) throws Exception {
 
-    File file = new File("./ourbolt");
+    File file = new File("./splitsentence");
     file.setExecutable(true);
     TopologyBuilder builder = new TopologyBuilder();
 
